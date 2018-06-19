@@ -125,6 +125,17 @@ class FetlifeAutomator(object):
 
         return self.br.response
 
+    def get_messages(self):
+        """Assumes that the automator is already logged in"""
+
+        self.br.open('https://fetlife.com/inbox')
+        conversations = self.br.parsed.find_all(
+            attrs={"data-conversation": True})
+        conversations = list(map(lambda c: c.find(href=re.compile(
+            r"\/conversations\/"), class_="silver"), conversations))
+        # The conversations list is now a list of tuples of (message: string, conversation_url: string).
+        conversations = list(map(lambda c: (c.string, c['href']), conversations))
+        return conversations
 
 if __name__ == "__main__":
     automator = FetlifeAutomator()
