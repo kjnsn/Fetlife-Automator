@@ -9,6 +9,7 @@ robobrowser = "*"
 [dev-packages]
 pylint = "*"
 "autopep8" = "*"
+responses = "*"
 
 [requires]
 python_version = "3.6"
